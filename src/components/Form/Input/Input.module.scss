@@ -1,0 +1,53 @@
+.container{
+    position: relative;
+    display: inline-block;
+    background: var(--bg);
+    &::before,
+    &::after{
+        content: '';
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary);
+        transition: 0.2s ease;
+    }
+    &::after{
+        left: 0;
+    }
+}
+
+.input{
+    position: relative;
+    padding: 15px 5px;
+    border-bottom: 1px solid var(--primary);
+    transition: 0.2s ease;
+    
+}
+
+.placeholder{
+    position: absolute;
+    left: 5px;
+    top: 15px;
+    transition: 0.2s ease;
+    opacity: 0.6;
+    background: inherit;
+        pointer-events: none;
+}
+
+.input:focus + .placeholder,
+.input:valid + .placeholder{
+    top: -10px;
+    left: 0;
+    padding: 0 5px;
+}
+.container:has(> .input:focus){
+    &::before{
+        width: 50%;
+    }
+    &::after{
+        width: 50%;
+    }
+}

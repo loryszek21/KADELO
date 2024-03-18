@@ -1,0 +1,24 @@
+@import 'src/styles/mixin.scss';
+
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    backdrop-filter: blur(15px);
+}
+
+.container{
+    position: relative;
+    min-width: 300px;
+    @include adaptiv('width', 1200, 300);
+    aspect-ratio: 16/9;
+    // height: 70%;
+    // background: var(--bg);
+    padding: 15px;
+}
