@@ -2,6 +2,7 @@
     display: grid;
     grid-template-columns: auto minmax(320px, 1440px) auto;
     grid-template-rows: auto 1fr auto;
+    gap: 40px;
     grid-template-areas: 
         'header header header'
         '. body .'

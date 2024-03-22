@@ -9,11 +9,13 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 export default function Menu({ ...props }: MenuProps): JSX.Element {
-    const [selectedTab, setSelectedTab] = useState(tabs[0])
     const router = usePathname()
+    const [selectedTab, setSelectedTab] = useState(tabs.find(tab => tab.link === router) || tabs[0])
+
+
 
     return (
-        <nav>
+        <nav {...props}>
             <ul className={styles.list}>
                 {tabs.map((item: MenuTab) => (
                     <li
