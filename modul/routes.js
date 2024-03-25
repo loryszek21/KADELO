@@ -3,6 +3,7 @@ const controller = require('./controller');
 
 const router = Router();
 
-router.get('/', controller.getCustomer);
+router.get('/', controller.getCourses);
+router.get('/:id', controller.getCoursesById);
 
 module.exports = router;
