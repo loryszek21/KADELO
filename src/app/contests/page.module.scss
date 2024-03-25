@@ -19,7 +19,8 @@
         height: 100%;
         .progress_ring{
             width: 100px;
-            height: 100px;
+            min-width: 100px;
+            aspect-ratio: 1;
         }   
     }
     .bottom_part{

@@ -5,21 +5,16 @@ export const metadata: any = {
     title: "About page",
 }
 
-function Contests(): JSX.Element {
+async function Contests() {
+
+    const info = await fetch('http://localhost:5000/courses')
+    const data: CoursePageProps[] = await info.json()
 
     return (
         <div className={styles.main}>
             <>{
-                [0, 2, 3, 4].map((i) => {
-                    return <Contest
-                        key={i}
-                        title={'Title ' + i}
-                        description={'description ' + i}
-                        start={new Date(Date.now())}
-                        end={new Date(new Date().setDate(new Date().getDate() + i))}
-                        task={4}
-                        completed={i}
-                    />
+                data.map((item, i: number) => {
+                    return <Contest key={item.course_id} {...item} />
                 })
             }</>
         </div>
