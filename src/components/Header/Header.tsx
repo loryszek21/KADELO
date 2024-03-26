@@ -1,3 +1,4 @@
+import Login from '../Login/login';
 import Menu from '../Menu/Menu';
 import P from '../Ptag/Ptag';
 import ThemeChange from '../Theme/Theme';
@@ -10,7 +11,8 @@ export default function Header({ className, ...props }: HeaderProps): JSX.Elemen
         <header className={cn(className, styles.header)} {...props}>
             <P size='s'>Logo</P>
             <Menu />
-            <ThemeChange />
+            {/* <ThemeChange /> */}
+            <Login />
         </header>
     )
 }
