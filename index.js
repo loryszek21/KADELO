@@ -6,8 +6,10 @@ const app = express();
 const port = 5000;
 
 app.use(express.json());
+app.get("/", (req, res) => {
+    res.send("Fuck it:) <3");
+});
 
-app.use("/courses", coursesRoutes);
 app.use("/courses", coursesRoutes);
 
 app.listen(port, () => {
