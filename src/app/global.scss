@@ -55,6 +55,10 @@ button {
 a {
     text-decoration: none;
     color: inherit;
+    transition: 0.2s ease;
+    &:hover{
+        color: var(--primary);
+    }
 }
 
 ul, li{

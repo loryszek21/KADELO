@@ -12,8 +12,6 @@ export default function Menu({ ...props }: MenuProps): JSX.Element {
     const router = usePathname()
     const [selectedTab, setSelectedTab] = useState(tabs.find(tab => tab.link === router) || tabs[0])
 
-
-
     return (
         <nav {...props}>
             <ul className={styles.list}>

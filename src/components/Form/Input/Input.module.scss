@@ -21,10 +21,11 @@
 
 .input{
     position: relative;
-    padding: 15px 5px;
+    padding: 10px 5px;
     border-bottom: 1px solid var(--primary);
     transition: 0.2s ease;
-    
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .placeholder{
