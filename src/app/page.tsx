@@ -1,7 +1,3 @@
-export const metadata: any = {
-    title: "Home page",
-}
-
 function App(): JSX.Element {
 
     return (
@@ -12,4 +8,3 @@ function App(): JSX.Element {
 }
 
 export default App;
-

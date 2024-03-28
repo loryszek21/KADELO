@@ -1,5 +1,4 @@
 import Htag from '@/components/Htag/Htag';
-import P from '@/components/Ptag/Ptag';
 
 export const metadata: any = {
     title: "About page",

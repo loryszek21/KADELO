@@ -5,7 +5,7 @@ import styles from '../Button/Button.module.scss'
 import { motion } from 'framer-motion'
 import React from 'react';
 
-export default function Button({ appearance, children, padding = 10, ...props }: ButtonProps): JSX.Element {
+export default function Button({ appearance, children, ...props }: ButtonProps): JSX.Element {
 
     const buttonStyle = {
         initial: { rotate: 0 },
