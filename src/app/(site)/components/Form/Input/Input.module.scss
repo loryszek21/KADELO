@@ -11,7 +11,7 @@
         bottom: 0;
         width: 0;
         height: 2px;
-        background: var(--primary);
+        background: var(--secondary);
         transition: 0.2s ease;
     }
     &::after{
@@ -22,10 +22,10 @@
 .input{
     position: relative;
     padding: 10px 5px;
-    border-bottom: 1px solid var(--primary);
     transition: 0.2s ease;
     width: 100%;
     box-sizing: border-box;
+    outline: 1px solid var(--primary);
 }
 
 .placeholder{
@@ -35,11 +35,10 @@
     transition: 0.2s ease;
     opacity: 0.6;
     background: inherit;
-        pointer-events: none;
+    pointer-events: none;
 }
 
-.input:focus + .placeholder,
-.input:valid + .placeholder{
+.input:not(:placeholder-shown) + .placeholder{
     top: -10px;
     left: 0;
     padding: 0 5px;

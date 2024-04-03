@@ -1,4 +1,4 @@
-import Htag from '@/components/Htag/Htag';
+import Htag from '@/app/(site)/components/Htag/Htag';
 
 export const metadata: any = {
     title: "About page",

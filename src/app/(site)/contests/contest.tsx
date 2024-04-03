@@ -1,8 +1,8 @@
-import Button from '@/components/Form/Button/Button';
+import Button from '@/app/(site)/components/Form/Button/Button';
 import styles from './page.module.scss';
-import P from '@/components/Ptag/Ptag';
-import Htag from '@/components/Htag/Htag';
-import ProgressRing from '@/components/progress_ring/progress_ring';
+import P from '@/app/(site)/components/Ptag/Ptag';
+import Htag from '@/app/(site)/components/Htag/Htag';
+import ProgressRing from '@/app/(site)/components/progress_ring/progress_ring';
 
 export default function Contest(course: CoursePageProps): JSX.Element {
 
