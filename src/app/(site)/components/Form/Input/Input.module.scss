@@ -31,14 +31,16 @@
 .placeholder{
     position: absolute;
     left: 5px;
-    top: 15px;
+    top: 10px;
     transition: 0.2s ease;
     opacity: 0.6;
     background: inherit;
     pointer-events: none;
 }
 
-.input:not(:placeholder-shown) + .placeholder{
+.input:not(:placeholder-shown) + .placeholder,
+.input:focus + .placeholder,
+.input:valid + .placeholder{
     top: -10px;
     left: 0;
     padding: 0 5px;
