@@ -9,14 +9,16 @@ import Link from 'next/link';
 import { useRef } from 'react';
 import { FaGoogle } from "react-icons/fa";
 import P from '@/app/(site)/components/Ptag/Ptag';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-export default function Login({ className, ...props }: LoginProps): JSX.Element {
+
+
+export default function Login({ className, props }: LoginProps): JSX.Element {
     const email = useRef<string>('')
     const password = useRef<string>('')
     const router = useRouter()
-    // console.log(props)
+    console.log(props)
     const login = async (event: SubmitEvent) => {
         event.preventDefault()
         try{
@@ -42,7 +44,7 @@ export default function Login({ className, ...props }: LoginProps): JSX.Element 
     return (
         <div className={cn(className, styles.login)}>
             <div className={styles.login_container}>
-                <form className={styles.login_form} onSubmit={(e) => login(e)}>
+                <form className={styles.login_form} onSubmit={(e: any) => login(e)}>
                     <P size='l' className={styles.title}>Login</P>
                     <Input placeholder='' type='hidden' />
                     <Input placeholder='Email' type='email' onChange={(e) => email.current = e.target.value} />

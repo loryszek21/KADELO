@@ -6,10 +6,9 @@ import Providers from '@/app/(site)/components/Theme/providers'
 import { ToastContainer } from 'react-toastify'
 
 export default function Signin(props : any) {
-    console.log(props)
     return (
         <Providers>
-            <Login {...props}/>
+            <Login props={props}/>
             <ToastContainer
                 position="bottom-left"
                 autoClose={5000}
