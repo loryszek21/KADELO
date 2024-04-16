@@ -3,8 +3,8 @@ const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'KADELO_DB',
-    password: 'zaq1@WSX',
+    database: 'KADELO',
+    password: 'postegres',
     port: 5432,
 })
 
