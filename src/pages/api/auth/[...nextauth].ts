@@ -1,7 +1,6 @@
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { json } from 'stream/consumers';
 
 export default NextAuth({
     providers: [
@@ -18,7 +17,7 @@ export default NextAuth({
             },
             async authorize(credentials, req) {
                 try {
-                    const user = await fetch('http://localhost:5000/user', {
+                    const user = await fetch('http://localhost:5000/user/getUser', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(credentials)
@@ -45,5 +44,6 @@ export default NextAuth({
     ],
     pages: {
         signIn: '/auth/signin',
+        newUser: '/auth/newUser',
     },
 });

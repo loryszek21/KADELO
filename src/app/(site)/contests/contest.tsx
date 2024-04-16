@@ -3,6 +3,7 @@ import styles from './page.module.scss';
 import P from '@/app/(site)/components/Ptag/Ptag';
 import Htag from '@/app/(site)/components/Htag/Htag';
 import ProgressRing from '@/app/(site)/components/progress_ring/progress_ring';
+import Link from 'next/link';
 
 export default function Contest(course: CoursePageProps): JSX.Element {
 
@@ -19,7 +20,9 @@ export default function Contest(course: CoursePageProps): JSX.Element {
             </div>
             <div className={styles.bottom_part}>
                 {/* <Timestamp date={course.course_time_end} /> */}
-                <Button appearance='ghost'>Solve</Button>
+                <Link href={`/contest/${course.course_id}`}>
+                    <Button appearance='ghost'>Solve</Button>
+                </Link>
             </div>
         </div>
     )

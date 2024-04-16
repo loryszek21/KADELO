@@ -1,0 +1,67 @@
+.main{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    
+}
+
+.codeContainer{
+    position: relative;
+    display: grid;
+    grid-template-rows: 0.8fr 0.2fr;
+    gap: 10px;
+}
+
+.submitButton{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 100px;
+    height: 40px;
+
+}
+
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    border-radius: 10px;
+    width: 100px;
+    height: 40px;
+}
+
+.output{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg);
+    border-radius: 10px;
+    height: 100px;
+}
+
+.submitting{
+    background: none;
+    overflow: hidden;
+    &::after{
+        content: "";
+        position: absolute;
+        width: 36px;
+        height: 36px;
+        background: var(--bg);
+        border-radius: 50%;
+    }
+    &::before{
+        //write a half circle green
+        content: "";
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(90deg, var(--primary), var(--primary) 50%, var(--bg) 50%);
+        border-radius: 50%;
+
+    }
+}

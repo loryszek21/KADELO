@@ -11,13 +11,13 @@ export default function Header({ className, ...props }: HeaderProps): JSX.Elemen
 
     const { data: session } = useSession();
 
-    console.log(session?.user)
 
+    
     return (
         <header className={cn(className, styles.header)} {...props}>
             <FaCode size={40}/>
             <Menu />
-            {/* <ThemeChange/> */}
+            <ThemeChange/>
             <>
                 {session ?
                     <button onClick={() => signOut()}>Logout</button> :

@@ -18,7 +18,6 @@ export default function Login({ className, props }: LoginProps): JSX.Element {
     const email = useRef<string>('')
     const password = useRef<string>('')
     const router = useRouter()
-    console.log(props)
     const login = async (event: SubmitEvent) => {
         event.preventDefault()
         try{
@@ -56,7 +55,7 @@ export default function Login({ className, props }: LoginProps): JSX.Element {
                     <Button onClick={() => signIn('google', {redirect: true, callbackUrl: props?.callbackUrl})} appearance='ghost'>Login with Google <FaGoogle /></Button>
                 </div>
                 <section className={styles.registration}>
-                    <P size='m'>Don`t have an account? <Link className={styles.reg_link} href='/registration'>Register</Link></P>
+                    <P size='m'>Don`t have an account? <Link className={styles.reg_link} href='newUser'>Register</Link></P>
                 </section>
             </div>
         </div>
