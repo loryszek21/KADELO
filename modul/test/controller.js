@@ -2,11 +2,15 @@ const pool = require("../../db");
 const testcon = require("./testcontroller");
 var fs = require("fs");
 
+const prepareTest = (text) => {
+    return text + `\n module.exports = {start};`
+}
+
 const getTest = (req, res) => {
 
     fs.writeFile(
         `./modul/test/test.js`,
-        JSON.parse(req.body.code),
+        prepareTest(JSON.parse(req.body.code)),
         "utf-8",
         (err) => {
             if (err) {
@@ -16,10 +20,10 @@ const getTest = (req, res) => {
 
             try {
                 const tests = testcon.runTest();
-                res.status(200).json({ message: JSON.stringify(tests) });
+                return res.status(200).json({ message: JSON.stringify(tests) });
             } catch (error) {
                 console.error(`Error executing tests: ${error}`);
-                res.status(500).json({ message: "Error executing code" });
+                res.status(500).json({ error: error + "" });
             }
         }
     );
