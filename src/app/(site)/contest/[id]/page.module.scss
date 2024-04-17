@@ -35,12 +35,16 @@
 }
 
 .output{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: var(--bg);
-    border-radius: 10px;
-    height: 100px;
+    display: grid;
+    grid-template-rows: 0.8fr 0.2fr;
+    gap: 10px;
+}
+
+.passed{
+    color: green;
+}
+.failed{
+    color: red;
 }
 
 .submitting{

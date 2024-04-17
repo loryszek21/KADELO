@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import styles from './page.module.scss';
 import cn from 'classnames';
 import {motion} from 'framer-motion';
+import P from '../../components/Ptag/Ptag';
 
 export default function CodeArea(): JSX.Element{
 
@@ -13,10 +14,9 @@ export default function CodeArea(): JSX.Element{
     const [code, setCode] = useState<string>(`function start(a,b) {
     return(a*b)
 }
-
-module.exports = {start};`);
+`);
     const [output, setOutput] = useState<any>();
-
+    const [error, setError] = useState<string>('');
 
     const BUTTON ={
         submit: {
@@ -37,6 +37,15 @@ module.exports = {start};`);
         }
     }
 
+    const outputModifier = (output: []) => {
+        let changed    
+        changed = output.map((result, index) => (
+            <P size='s' key={index} className={cn({[styles.passed]: result}, {[styles.failed]: !result})}>Test {index+1}: {result ? "passed": "failed"}</P>
+        ))
+        setOutput(changed);
+        setError("");
+    }
+
     const handleSubmit = () => {
         setSubmitting(true);
         fetch('http://localhost:5000/test', {
@@ -46,14 +55,17 @@ module.exports = {start};`);
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data);
+            // console.log(data);
             if(data.error){
-                throw new Error("data.details");
+                throw new Error(data.error);
             }
-            setOutput(data.message);
+            outputModifier(JSON.parse(data.message));
         })
-        .catch(error => {
-            console.error('1:', error);
+        .catch(e => {
+            console.log('1:', e);
+            setError(e.message)
+            setOutput(null);
+            console.log('2:', error);
         })
         .finally(() => setSubmitting(false))
     }
@@ -66,18 +78,15 @@ module.exports = {start};`);
                     value={code}
                     onChange={(evn:any) => setCode(evn)}
                     defaultLanguage="javascript" 
-                    defaultValue="// some comment" 
                     theme={resolvedTheme == "dark" ? 'vs-dark': 'vs-light'}
                 />
             </div>
-            <div className={styles.output}>
-                <Editor
-                    height="100%"
-                    value={output}
-                    defaultLanguage="txt"
-                    theme={resolvedTheme == "dark" ? 'vs-dark': 'vs-light'}
-                />
-            </div>
+            {error && <div className={styles.output}>
+                <P size='s' className={styles.error}>{error}</P>
+            </div>}
+            {output && <div className={styles.output}>
+                {output}
+            </div>}
             <div className={styles.submitButton}>
                 <motion.button
                     className={cn(styles.button, {[styles.submitting]: isSubmitting})}
