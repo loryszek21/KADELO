@@ -11,6 +11,7 @@ import { FaGoogle } from "react-icons/fa";
 import P from '@/app/(site)/components/Ptag/Ptag';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { TiArrowBack } from "react-icons/ti";
 
 
 
@@ -57,6 +58,9 @@ export default function Login({ className, props }: LoginProps): JSX.Element {
                 <section className={styles.registration}>
                     <P size='m'>Don`t have an account? <Link className={styles.reg_link} href='newUser'>Register</Link></P>
                 </section>
+                <div className={styles.back} onClick = {()=>router.back()}>
+                <TiArrowBack size={30}/>
+                </div>
             </div>
         </div>
     )
