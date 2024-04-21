@@ -1,6 +1,8 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export interface LoginProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+export interface SignInProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+    setTab: any,
+    router: any,
     props: {
         callbackUrl: string,
         csrfToken: string,

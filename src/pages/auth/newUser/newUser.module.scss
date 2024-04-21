@@ -1,0 +1,21 @@
+.login_form{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+}
+
+.title{
+    text-align: center;
+}
+
+.login{
+    .reg_link{
+        margin-left: 5px;
+        cursor: pointer;
+        color: var(--secondary);
+        &:hover{
+            color: var(--primary);
+        }
+    }
+}

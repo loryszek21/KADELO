@@ -1,0 +1,25 @@
+.login{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.login_container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    width: 400px;
+    padding: 30px;
+    outline: 2px solid var(--primary);
+    border-radius: 5px;
+    gap: 20px;
+}
+
+.back{
+    position:absolute;
+    left: 5px;
+    top: 5px;
+    cursor:pointer;
+}
