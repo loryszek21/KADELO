@@ -1,6 +1,7 @@
 const pool = require("../../db");
 const testcon = require("./testcontroller");
-var fs = require("fs");
+const fs = require("fs");
+const exec = require("child_process").exec;
 
 const prepareTest = (text) => {
     return text + `\n module.exports = {start};`
@@ -8,25 +9,41 @@ const prepareTest = (text) => {
 
 const getTest = (req, res) => {
 
-    fs.writeFile(
-        `./modul/test/test.js`,
-        prepareTest(JSON.parse(req.body.code)),
-        "utf-8",
-        (err) => {
-            if (err) {
-                console.error(`Error writing file: ${err}`);
-                return res.status(500).json({ message: "Error writing file" });
-            }
+    try {
+        fs.writeFileSync("modul/test/test.js", JSON.parse(req.body.code) + `\n module.exports = {start};`);
+        res.status(200).send("File written successfully");
+    } catch (error) {
+        console.error('Error writing to file:', error);
+        res.status(500).send('Error writing to file');
+        return;
+    }
 
-            try {
-                const tests = testcon.runTest();
-                return res.status(200).json({ message: JSON.stringify(tests) });
-            } catch (error) {
-                console.error(`Error executing tests: ${error}`);
-                res.status(500).json({ error: error + "" });
-            }
+    const buildCommand = 'docker build -t sandboxtest .';
+    exec(buildCommand, (buildError, buildStdout, buildStderr) => {
+        if (buildError) {
+            res.status(500).send('Error building Docker image');
+            return;
         }
-    );
+        const dockerCommand = 'docker run --name sandboxtest -v /modul/test/testcontroller.js:/sandboxtest/code sandboxtest';
+        exec(dockerCommand, (error, stdout, stderr) => {
+            if (error) {
+                res.status(500).send('Error executing Docker command');
+                return;
+            }
+            exec('docker logs -f sandboxtest > modul/test/output.txt | docker rm sandboxtest', (rmError, rmStdout, rmStderr) => {
+                if (rmError) {
+                    console.error(`Error removing Docker container: ${rmError}`);
+                    res.status(500).send('Error removing Docker container');
+                    return;
+                }
+                console.log('Docker container removed successfully');
+                const data = fs.readFileSync('modul/test/output.txt', 'utf-8');
+                console.log("Data: ", data);
+                res.status(200).json(data);
+            });
+        });
+    });
+
 };
 
 module.exports = {
