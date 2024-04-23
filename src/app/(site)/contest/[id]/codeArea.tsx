@@ -37,35 +37,29 @@ export default function CodeArea(): JSX.Element{
         }
     }
 
-    const outputModifier = (output: []) => {
+    const outputModifier = (output: any) => {
         let changed    
-        changed = output.map((result, index) => (
-            <P size='s' key={index} className={cn({[styles.passed]: result}, {[styles.failed]: !result})}>Test {index+1}: {result ? "passed": "failed"}</P>
+        changed = output.testSolved.map((result:any, index:number) => (
+            <P size='s' key={index} className={cn({[styles.passed]: result.isSolved}, {[styles.failed]: !result.isSolved})}>Test {index+1}: {result.isSolved ? "passed": "failed"}</P>
         ))
         setOutput(changed);
         setError("");
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         setSubmitting(true);
-        fetch('http://localhost:5000/test', {
+        await fetch('http://localhost:5000/test', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ code: JSON.stringify(code), type: '.js' })
         })
         .then(res => res.json())
         .then(data => {
-            // console.log(data);
-            if(data.error){
-                throw new Error(data.error);
-            }
-            outputModifier(JSON.parse(data.message));
+            console.log(JSON.parse(data));
+            // outputModifier(JSON.parse(data));
         })
         .catch(e => {
             console.log('1:', e);
-            setError(e.message)
-            setOutput(null);
-            console.log('2:', error);
         })
         .finally(() => setSubmitting(false))
     }
