@@ -1,4 +1,4 @@
-import CodeArea from './codeArea'
+import CodeArea from './codeArea/codeArea'
 import ContestInfo from './contestInfo'
 import styles from './page.module.scss'
 

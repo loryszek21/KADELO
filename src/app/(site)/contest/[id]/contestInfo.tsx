@@ -19,8 +19,6 @@ export default async function ContestInfo({id}: ContestInfoProps) {
     
     const data: ContestInfoData = (await info.json())[0]
 
-    // console.log(data)
-
     return (
         <div>
             <Htag tag='h1'>{data.lessons_title}</Htag>
