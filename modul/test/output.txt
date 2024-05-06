@@ -1,1 +1,1 @@
-{"testSolved":[{"input":[1,2],"output":2,"expected":3,"isSolved":false},{"input":[2,3],"output":6,"expected":5,"isSolved":false},{"input":[3,4],"output":12,"expected":7,"isSolved":false},{"input":[-1,2],"output":-2,"expected":1,"isSolved":false}]}
+Function not found
