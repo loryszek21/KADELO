@@ -3,6 +3,6 @@ const controller = require("./controller");
 
 const router = Router();
 
-router.post("/:id", controller.getTest);
+router.get("/:id", controller.getTaskById);
 
 module.exports = router;

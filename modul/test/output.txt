@@ -1,1 +1,11 @@
-Function not found
+{
+  testSolved: [
+    { input: 'mom undefined', output: true, isSolved: false },
+    { input: 'test undefined', output: false, isSolved: false },
+    { input: 'peep undefined', output: true, isSolved: false },
+    { input: 'racecar undefined', output: true, isSolved: false },
+    { input: 'rotator undefined', output: true, isSolved: false },
+    { input: 'sure undefined', output: false, isSolved: false },
+    { input: 'check undefined', output: false, isSolved: false }
+  ]
+}

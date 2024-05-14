@@ -1,30 +1,42 @@
 try {
     const userFunction = require("./test.js");
 
-    const tests = [
-        [[1, 2], 3],
-        [[2, 3], 5],
-        [[3, 4], 7],
-        [[-1, 2], 1],
-
-    ]
+    const test_input = [
+        ["mom"],
+        ["test"],
+        ["peep"],
+        ["racecar"],
+        ["rotator"],
+        ["sure"],
+        ["check"],
+    ];
+    test_input.forEach((input) => {
+        input[0] = parseInt(input[0]);
+        input[1] = parseInt(input[1]);
+    });
+    const test_output = [
+        ["true"],
+        ["false"],
+        ["true"],
+        ["true"],
+        ["true"],
+        ["false"],
+        ["false"],
+    ];
     const testSolved = [];
     if (userFunction.start) {
-        for (let i = 0; i < tests.length; i++) {
-            const [input, expected] = tests[i];
-            const output = userFunction?.start(...input);
-            const isSolved = output === expected;
+        for (let i = 0; i < test_input.length; i++) {
+            const output = userFunction?.start(...test_input[i]);
+            const isSolved = output === parseInt(test_output[i][0]);
             testSolved.push({
-                input,
+                input: test_input[i][0] + " " + test_input[i][1],
                 output,
-                expected,
-                isSolved
-            })
+                isSolved,
+            });
         }
     }
 
-    console.log(JSON.stringify({ testSolved }));
-}
-catch {
+    console.log({ testSolved });
+} catch {
     console.log("Function not found");
 }

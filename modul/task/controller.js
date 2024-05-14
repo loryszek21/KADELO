@@ -1,8 +1,8 @@
 const pool = require("../../db");
 
-const getLessonById = (req, res) => {
+const getTaskById = (req, res) => {
     pool.query(
-        `SELECT * FROM lessons WHERE lessons_id = ${req.params.id}`,
+        `SELECT * FROM tasks WHERE tasks_id = ${req.params.id}`,
         (error, results) => {
             if (results.rows.length == 0) {
                 return res.status(404).json({ message: "Lesson not found" });
@@ -16,5 +16,5 @@ const getLessonById = (req, res) => {
 };
 
 module.exports = {
-    getLessonById,
+    getTaskById,
 };

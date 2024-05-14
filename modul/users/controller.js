@@ -10,19 +10,23 @@ const getUser = (req, res) => {
             [email],
             (error, results) => {
                 if (results.rows.length == 0) {
-                    return res.status(404).json({ message: "User not found" });
+                    return res.status(404).json({ error: "User not found" });
                 }
                 bcrypt.compare(
                     password,
                     results.rows[0].users_password,
                     (err, result) => {
                         if (err) {
-                            return res.status(500).json({ message: "Internal error" });
+                            return res
+                                .status(500)
+                                .json({ error: "Internal error" });
                         }
                         if (result) {
                             return res.status(200).json(results.rows[0]); // password match
                         } else {
-                            return res.status(401).json({ message: "Password not match" }); // password not match
+                            return res
+                                .status(401)
+                                .json({ error: "Password not match" }); // password not match
                         }
                     }
                 );
@@ -46,18 +50,20 @@ const insertUser = (req, res) => {
                 if (results.rows.length !== 0) {
                     //   return res.status(409).json({ message: "User with this email already exists" });
                     const existingUser = results.rows.find(
-                        (user) => user.users_email === email || user.users_name === name
+                        (user) =>
+                            user.users_email === email ||
+                            user.users_name === name
                     );
                     console.log(results.rows);
 
                     if (existingUser.users_email === email) {
-                        return res
-                            .status(409)
-                            .json({ message: "User with this email already exists" });
+                        return res.status(409).json({
+                            message: "User with this email already exists",
+                        });
                     } else if (existingUser.users_name === name) {
-                        return res
-                            .status(409)
-                            .json({ message: "User with this name already exists" });
+                        return res.status(409).json({
+                            message: "User with this name already exists",
+                        });
                     }
                 } else if (results.rows.length === 0) {
                     pool.query(
@@ -68,10 +74,14 @@ const insertUser = (req, res) => {
 
                     if (error) {
                         console.error(error);
-                        return res.status(500).json({ message: "Internal error" });
+                        return res
+                            .status(500)
+                            .json({ message: "Internal error" });
                     }
                     console.log("Create account success");
-                    return res.status(200).json({ message: "Create account success" });
+                    return res
+                        .status(200)
+                        .json({ message: "Create account success" });
                 } else {
                     return res.status(500).json({ message: "Unknown error" });
                 }
