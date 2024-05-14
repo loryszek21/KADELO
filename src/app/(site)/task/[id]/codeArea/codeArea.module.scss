@@ -1,18 +1,24 @@
-.codeContainer{
+.codeContainer {
     position: relative;
     display: grid;
     grid-template-rows: 0.8fr 0.2fr;
     gap: 10px;
 }
 
-.output{
+.output {
     display: grid;
     grid-template-rows: 0.8fr 0.2fr;
     gap: 10px;
 }
 
+.passed {
+    color: green;
+}
+.failed {
+    color: red;
+}
 
-.submitButton{
+.submitButton {
     position: relative;
     display: flex;
     justify-content: center;

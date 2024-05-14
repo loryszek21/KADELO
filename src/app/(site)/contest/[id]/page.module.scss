@@ -1,7 +1,12 @@
-.main{
-    display: grid;
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
     height: 100%;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    
+}
+
+.contest {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
