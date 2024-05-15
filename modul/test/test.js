@@ -1,5 +1,4 @@
-function start(str) {
-    const reversed = str.split("").reverse().join("");
-    return str === reversed;
+function start(a,b) {
+    return(a+b)
 }
  module.exports = {start};

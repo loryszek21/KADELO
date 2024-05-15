@@ -1,11 +1,1 @@
-{
-  testSolved: [
-    { input: 'mom undefined', output: true, isSolved: false },
-    { input: 'test undefined', output: false, isSolved: false },
-    { input: 'peep undefined', output: true, isSolved: false },
-    { input: 'racecar undefined', output: true, isSolved: false },
-    { input: 'rotator undefined', output: true, isSolved: false },
-    { input: 'sure undefined', output: false, isSolved: false },
-    { input: 'check undefined', output: false, isSolved: false }
-  ]
-}
+[{"input":[3,4],"output":7,"correctOutput":[7],"isSolved":true},{"input":[1,5],"output":6,"correctOutput":[6],"isSolved":true},{"input":[-2,5],"output":3,"correctOutput":[3],"isSolved":true},{"input":[5,7],"output":12,"correctOutput":[12],"isSolved":true},{"input":[200,100],"output":300,"correctOutput":[300],"isSolved":true},{"input":[-89,55],"output":-34,"correctOutput":[-34],"isSolved":true}]
