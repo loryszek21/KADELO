@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 
 :root {
     --bg: rgb(26, 26, 26);
@@ -6,28 +6,25 @@
     --text: rgb(255, 255, 255);
     --primary: rgb(106, 13, 173);
     --secondary: rgb(0, 229, 255);
-
 }
 
-[data-theme='light'] {
-    --bg: #F5F3F7;
-    --container: #E9E4ED;
-    --text: #4A4A4A;
-    --primary: #6A0DAD;
-    --secondary: #B93CFF;
+[data-theme="light"] {
+    --bg: #f5f3f7;
+    --container: #e9e4ed;
+    --text: #4a4a4a;
+    --primary: #6a0dad;
+    --secondary: #b93cff;
 }
 
-
-
-*{
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Rubik', sans-serif;
+    font-family: "Rubik", sans-serif;
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
 
-html{
+html {
     overflow-y: overlay;
 }
 html,
@@ -37,7 +34,7 @@ body {
     height: 100%;
     overflow-x: hidden;
     background: var(--bg);
-    >div{
+    > div {
         height: 100%;
     }
 }
@@ -50,22 +47,23 @@ button {
     line-height: normal;
     overflow: visible;
     padding: 0;
-    
 }
 a {
     text-decoration: none;
     color: inherit;
     transition: 0.2s ease;
-    &:hover{
+    cursor: pointer;
+    &:hover {
         color: var(--primary);
     }
 }
 
-ul, li{
+ul,
+li {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 input {
-    all: unset; 
+    all: unset;
 }

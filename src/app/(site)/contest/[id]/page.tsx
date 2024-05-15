@@ -29,7 +29,7 @@ export default async function Contest({ params }: { params: { id: number } }) {
         <div className={styles.main}>
             {data?.map((item, i: number) => {
                 return (
-                    <Link key={item.tasks_id} href={`/task/${item.tasks_id}`}>
+                    <Link key={item.tasks_id} href={`task/${item.tasks_id}`}>
                         <div className={styles.contest}>
                             <span>{i}</span>
                             <Htag tag="h2">{item.tasks_title}</Htag>

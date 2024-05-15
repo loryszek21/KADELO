@@ -1,5 +1,5 @@
-import Htag from "../../components/Htag/Htag";
-import P from "../../components/Ptag/Ptag";
+import Htag from "@/app/(site)/components/Htag/Htag";
+import P from "@/app/(site)/components/Ptag/Ptag";
 
 type taskProps = {
     id: number;

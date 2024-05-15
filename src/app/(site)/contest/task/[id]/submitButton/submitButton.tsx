@@ -3,6 +3,7 @@ import styles from "./submitButton.module.scss";
 import cn from "classnames";
 import { useState } from "react";
 import P from "@/app/(site)/components/Ptag/Ptag";
+import { signIn, useSession } from "next-auth/react";
 
 type SubmitButtonProps = {
     id: number;
@@ -20,7 +21,7 @@ export default function SubmitButton({
     setError,
 }: SubmitButtonProps): JSX.Element {
     const [isSubmitting, setSubmitting] = useState<boolean>(false);
-
+    const { data: session, status } = useSession();
     const BUTTON = {
         submit: {
             width: "40px",
@@ -41,6 +42,15 @@ export default function SubmitButton({
     };
 
     const handleSubmit = async () => {
+        if (status === "unauthenticated") {
+            setError(
+                <P size="m">
+                    You need to be logged in to submit your code{" "}
+                    <a onClick={() => signIn()}>Log in</a>
+                </P>
+            );
+            return;
+        }
         setOutput(null);
         setError("");
         setSubmitting(true);
@@ -49,15 +59,13 @@ export default function SubmitButton({
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ code: JSON.stringify(code) }),
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            console.log(data);
-            // outputModifier(JSON.parse(data));
+            })
+                .then((res) => res.json())
+                .then(async (data) => await JSON.parse(data))
+                .then((data) => outputModifier(data))
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
         } catch (e: any) {
             console.log(e);
             setError(e.SyntaxError);
