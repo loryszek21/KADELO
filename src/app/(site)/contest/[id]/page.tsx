@@ -31,7 +31,7 @@ export default async function Contest({ params }: { params: { id: number } }) {
                 return (
                     <Link key={item.tasks_id} href={`task/${item.tasks_id}`}>
                         <div className={styles.contest}>
-                            <span>{i}</span>
+                            <span>{i + 1}</span>
                             <Htag tag="h2">{item.tasks_title}</Htag>
                             <P size="m">
                                 {item.tasks_complete ? "Solved" : "Solve"}

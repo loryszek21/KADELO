@@ -53,9 +53,6 @@ a {
     color: inherit;
     transition: 0.2s ease;
     cursor: pointer;
-    &:hover {
-        color: var(--primary);
-    }
 }
 
 ul,

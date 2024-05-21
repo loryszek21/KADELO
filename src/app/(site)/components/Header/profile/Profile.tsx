@@ -62,7 +62,6 @@ export default function Profile({
                 </div>
                 <Button
                     appearance="primary"
-                    className={styles.signout}
                     onClick={() => {
                         signOut(), setOpened(false);
                     }}

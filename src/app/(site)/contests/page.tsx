@@ -1,7 +1,5 @@
-import { error } from "console";
 import Contest from "./contest";
 import styles from "./page.module.scss";
-import { useEffect, useState } from "react";
 
 async function Contests() {
     const data: CoursePageProps[] = await fetch(
