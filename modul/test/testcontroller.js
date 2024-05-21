@@ -35,6 +35,6 @@ try {
     }
 
     console.log(JSON.stringify(testSolved));
-} catch {
-    console.log("Function not found");
+} catch(e) {
+    console.error(e);
 }
