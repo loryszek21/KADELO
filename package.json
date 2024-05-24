@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "nodemon --ignore modul/test/test.js --ignore modul/test/testcontroller.js index.js",
+        "dev": "nodemon --ignore modul/test/dockerContainer/test.js --ignore modul/test/dockerContainer/testcontroller.js index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
