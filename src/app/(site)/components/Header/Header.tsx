@@ -1,5 +1,4 @@
 import Menu from "../Menu/Menu";
-import ThemeChange from "../Theme/Theme";
 import styles from "./Header.module.scss";
 import { HeaderProps } from "./Header.props";
 import cn from "classnames";
@@ -15,7 +14,6 @@ export default function Header({
         <header className={cn(className, styles.header)} {...props}>
             <FaCode size={40} />
             <Menu />
-            {/* <ThemeChange/> */}
             <Profile />
         </header>
     );

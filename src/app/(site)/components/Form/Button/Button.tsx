@@ -10,28 +10,19 @@ export default function Button({
     children,
     ...props
 }: ButtonProps): JSX.Element {
-    const text = children?.toString().split("");
-
     const container = {
-        hidden: {
-            transition: {
-                delayChildren: 0.1,
-                staggerChildren: 0.1,
-            },
-        },
-        visible: {
-            transition: {
-                delayChildren: 0.1,
-                staggerChildren: 0.1,
-            },
-        },
+        hidden: {},
+        visible: {},
     };
 
     const item = {
-        hidden: { y: [100, 0] },
-        visible: {
-            y: 0,
-        },
+        hidden: { y: -100, transition: { duration: 0.5, type: "spring" } },
+        visible: { y: 0, transition: { duration: 0.5, type: "spring" } },
+    };
+
+    const itemRev = {
+        hidden: { y: 0, transition: { duration: 0.5, type: "spring" } },
+        visible: { y: 100, transition: { duration: 0.5, type: "spring" } },
     };
 
     return (
@@ -44,15 +35,12 @@ export default function Button({
             variants={container}
             initial="hidden"
             animate="visible"
-            exit="hidden"
             whileHover="hidden"
         >
-            {text?.map((el, i) => (
-                <motion.span variants={item} key={i}>
-                    {el}
-                    {"\u00A0"}
-                </motion.span>
-            ))}
+            <motion.span variants={item}>{children}</motion.span>
+            <motion.span variants={itemRev} style={{ position: "absolute" }}>
+                {children}
+            </motion.span>
         </motion.button>
     );
 }

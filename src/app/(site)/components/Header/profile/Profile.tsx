@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import Htag from "../../Htag/Htag";
 import P from "../../Ptag/Ptag";
 import Button from "../../Form/Button/Button";
+import ThemeChange from "../../Theme/Theme";
 
 export default function Profile({
     className,
@@ -55,7 +56,10 @@ export default function Profile({
                     <IoMdClose />
                 </motion.button>
                 <div className={styles.info}>
-                    <Htag tag="h3">Profile settings</Htag>
+                    <Htag tag="h3">
+                        Profile settings <ThemeChange />
+                    </Htag>
+
                     {/* <Image></Image> */}
                     <P size="m">{session?.user?.name}</P>
                     <P size="m">{session?.user?.email}</P>
