@@ -8,7 +8,6 @@ const getCourses = (req, res) => {
         if (error) {
             throw error;
         }
-        console.log(results.rows);
         res.status(200).json(results.rows);
     });
 };
@@ -23,7 +22,7 @@ const getCoursesById = (req, res) => {
             if (error) {
                 throw error;
             }
-            res.status(200).json(results.rows);
+            res.status(200).json(results.rows[0]);
         }
     );
 };
