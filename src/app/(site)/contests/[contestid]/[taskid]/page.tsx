@@ -1,16 +1,16 @@
 import CodeArea from "./codeArea/codeArea";
-import ContestInfo from "./contestInfo";
+import ContestInfo from "./contestInfo/contestInfo";
 import styles from "./page.module.scss";
 
 export default function Contest({
     params,
 }: {
-    params: { id: number };
+    params: { taskid: number };
 }): JSX.Element {
     return (
         <div className={styles.main}>
-            <ContestInfo id={params.id} />
-            <CodeArea id={params.id} />
+            <ContestInfo id={params.taskid} />
+            <CodeArea id={params.taskid} />
         </div>
     );
 }

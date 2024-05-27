@@ -11,11 +11,11 @@ const menuData = [
         title: "Contests",
         link: "/contests",
     },
-]
+];
 
 const [home, about, contest] = menuData;
 export type MenuTab = {
     title: string;
     link: string;
-}
+};
 export const menuTabs = [home, about, contest];

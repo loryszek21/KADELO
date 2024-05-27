@@ -1,5 +1,5 @@
 "use client";
-import { JSXElementConstructor, useState } from "react";
+import { useEffect, useState } from "react";
 import CodeEditor from "../codeEditor/codeEditor";
 import SubmitButton from "../submitButton/submitButton";
 import styles from "./codeArea.module.scss";
@@ -9,11 +9,13 @@ import cn from "classnames";
 export default function CodeArea({ id }: any): JSX.Element {
     const [output, setOutput] = useState<any>();
     const [error, setError] = useState<string>();
-    const [code, setCode] = useState<string>(`function start(a,b) {\n\n}`);
+    const [code, setCode] = useState(() => {
+        const savedCode = localStorage.getItem(`code${id}`);
+        return savedCode ? savedCode : "";
+    });
 
     const outputModifier = (output: any) => {
         let changed;
-        console.log(output);
         changed = output?.map((result: any, index: number) => (
             <div
                 key={index}
@@ -38,6 +40,11 @@ export default function CodeArea({ id }: any): JSX.Element {
         setOutput(changed);
         setError("");
     };
+
+    useEffect(() => {
+        localStorage.setItem(`code${id}`, code);
+    }, [code]);
+
     return (
         <div className={styles.codeContainer}>
             <div className={styles.code}>
