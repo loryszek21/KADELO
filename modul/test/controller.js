@@ -1,13 +1,14 @@
+const { resolve } = require("path");
 const pool = require("../../db");
 const fs = require("fs");
+const { getUserId } = require("../users/controller");
 const exec = require("child_process").exec;
 
-const testCodes = ``;
-
 const getTest = async (req, res) => {
+    const userId = await getUserId(req.body.email);
     await getTests(req.body.code, req.params.id);
-    await DockerRun(res);
-    // await ReadOutputFile(res);
+    const stdout = await DockerRun(res);
+    await insertTest(userId, req.params.id, stdout, res);
 };
 
 const testsController = (tests_input, tests_output) => `
@@ -79,7 +80,6 @@ function getTests(code, id) {
                             console.error(err);
                             reject(err);
                         }
-                        console.log("Tests file created");
                         resolve();
                     }
                 );
@@ -89,93 +89,49 @@ function getTests(code, id) {
 }
 
 function DockerRun(res) {
-    exec(
-        "docker cp ./modul/test/dockerContainer/test.js runCode:/usr/src/test",
-        (error, stdout, stderr) => {
-            if (error) {
-                console.error(`Error: ${stderr}`);
-            }
-            exec(
-                "docker exec runCode node /usr/src/test",
-                (error, stdout, stderr) => {
-                    if (error) {
-                        console.error(`Error: ${stderr}`);
-                        res.status(500).send(`Error: ${stderr}`);
-                    } else {
-                        console.log(`Output: ${stdout}`);
-                        res.status(200).json(stdout);
-                        // res.send(`Output: ${JSON.stringify(stdout)}`);
-                    }
+    return new Promise((resolve, reject) => {
+        exec(
+            "docker cp ./modul/test/dockerContainer/test.js runCode:/usr/src/test",
+            (error, stdout, stderr) => {
+                if (error) {
+                    console.error(`Error: ${stderr}`);
                 }
-            );
-        }
-    );
+                exec(
+                    "docker exec runCode node /usr/src/test",
+                    (error, stdout, stderr) => {
+                        if (error) {
+                            console.error(`Error: ${stderr}`);
+                            res.status(500).send(`Error: ${stderr}`);
+                        } else {
+                            resolve(stdout);
+                        }
+                    }
+                );
+            }
+        );
+    });
 }
 
-// function DockerRun(res) {
-//     return new Promise((resolve, reject) => {
-//         try {
-//             const buildCommand = "docker build -t sandboxtest .";
-//             exec(buildCommand, (buildError, buildStdout, buildStderr) => {
-//                 if (buildError) {
-//                     reject(buildError);
-//                     res.status(500).send("Error building Docker image");
-//                     return;
-//                 }
-//                 const dockerCommand =
-//                     "docker run --name sandboxtest -v /modul/test/testcontroller.js:/sandboxtest/code sandboxtest";
-//                 exec(dockerCommand, (error, stdout, stderr) => {
-//                     if (error) {
-//                         reject(error);
-//                         res.status(500).send("Error executing Docker command");
-//                         return;
-//                     }
-//                     exec(
-//                         "docker logs -f sandboxtest > modul/test/output.txt",
-//                         async (rmError, rmStdout, rmStderr) => {
-//                             if (rmError) {
-//                                 reject(rmError);
-//                                 console.error(
-//                                     `Error removing Docker container: ${rmError}`
-//                                 );
-//                                 res.status(500).send(
-//                                     "Error removing Docker container"
-//                                 );
-//                             }
-//                             exec(
-//                                 "docker rm sandboxtest",
-//                                 (rmError, rmStdout, rmStderr) => {
-//                                     if (rmError) {
-//                                         reject(rmError);
-//                                         console.error(
-//                                             `Error removing Docker container: ${rmError}`
-//                                         );
-//                                         res.status(500).send(
-//                                             "Error removing Docker container"
-//                                         );
-//                                     }
-//                                     resolve();
-//                                 }
-//                             );
-//                         }
-//                     );
-//                 });
-//             });
-//         } catch (e) {
-//             console.log(e);
-//             res.status(500).send("e");
-//             return;
-//         }
-//     });
-// }
-
-function ReadOutputFile(res) {
-    return new Promise((resolve, reject) => {
-        const data = fs.readFileSync("modul/test/output.txt", "utf-8");
-        console.log(data);
-        res.status(200).json(data);
-        resolve();
+function insertTest(userId, tasks_id, stdout, res) {
+    let completed = true;
+    console.log(stdout);
+    JSON.parse(stdout).map((el) => {
+        if (el.isSolved === false) {
+            completed = false;
+            return;
+        }
     });
+    pool.query(
+        `INSERT INTO user_tasks (users_id, tasks_id, complited, completion_date) VALUES ($1, $2, $3, $4)`,
+        [userId, tasks_id, completed, new Date()],
+        (error, results) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ message: "Internal error" });
+            }
+            res.status(201).json(stdout);
+        }
+    );
 }
 
 module.exports = {

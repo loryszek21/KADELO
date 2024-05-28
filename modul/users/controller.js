@@ -91,7 +91,28 @@ const insertUser = (req, res) => {
         return res.status(500).json({ message: "Internal error" });
     }
 };
+
+function getUserId(email) {
+    return new Promise((resolve, reject) => {
+        pool.query(
+            `SELECT * FROM users WHERE users_email = $1`,
+            [email],
+            (error, results) => {
+                if (error) {
+                    console.error(error);
+                    reject(error);
+                }
+                if (results.rows.length === 0) {
+                    reject();
+                }
+                resolve(results.rows[0].users_id);
+            }
+        );
+    });
+}
+
 module.exports = {
     getUser,
     insertUser,
+    getUserId,
 };
