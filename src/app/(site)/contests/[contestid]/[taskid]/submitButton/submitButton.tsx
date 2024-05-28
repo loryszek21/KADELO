@@ -22,6 +22,7 @@ export default function SubmitButton({
 }: SubmitButtonProps): JSX.Element {
     const [isSubmitting, setSubmitting] = useState<boolean>(false);
     const { data: session, status } = useSession();
+
     const BUTTON = {
         submit: {
             width: "40px",
@@ -58,7 +59,10 @@ export default function SubmitButton({
             const response = await fetch(`http://localhost:5000/test/${id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ code: JSON.stringify(code) }),
+                body: JSON.stringify({
+                    code: JSON.stringify(code),
+                    email: session?.user?.email,
+                }),
             })
                 .then((res) => res.json())
                 .then(async (data) => await JSON.parse(data))

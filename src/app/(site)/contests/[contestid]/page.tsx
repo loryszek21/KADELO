@@ -1,6 +1,3 @@
-import Link from "next/link";
-import Htag from "../../components/Htag/Htag";
-import P from "../../components/Ptag/Ptag";
 import styles from "./page.module.scss";
 import { taskType } from "./Task/task.props";
 import Task from "./Task/task";
