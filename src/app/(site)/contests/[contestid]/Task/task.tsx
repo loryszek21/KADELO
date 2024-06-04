@@ -34,36 +34,26 @@ export default async function Task({ item, index }: TaskProps) {
                     <div className={styles.line}></div>
                     <div className={styles.contest_title}>
                         <Htag tag="h3">{item.tasks_title}</Htag>
-                        {session ? (
-                            <>
-                                {data?.complited ? (
-                                    <P size="m">
-                                        Solved -{" "}
-                                        {new Intl.DateTimeFormat(
+                        {data?.complited ? (
+                            <P size="m">
+                                Solved -{" "}
+                                {new Intl.DateTimeFormat(
+                                    "en-US",
+                                    options
+                                ).format(new Date(data?.completion_date))}
+                            </P>
+                        ) : (
+                            <P size="m">
+                                Not solved
+                                {data?.completion_date &&
+                                    " - " +
+                                        new Intl.DateTimeFormat(
                                             "en-US",
                                             options
                                         ).format(
                                             new Date(data?.completion_date)
                                         )}
-                                    </P>
-                                ) : (
-                                    <P size="m">
-                                        Not solved
-                                        {data?.completion_date &&
-                                            " - " +
-                                                new Intl.DateTimeFormat(
-                                                    "en-US",
-                                                    options
-                                                ).format(
-                                                    new Date(
-                                                        data?.completion_date
-                                                    )
-                                                )}
-                                    </P>
-                                )}
-                            </>
-                        ) : (
-                            <P size="m">Not solved</P>
+                            </P>
                         )}
                     </div>
                 </div>
