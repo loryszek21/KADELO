@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./page.module.scss";
 import { FaCode } from "react-icons/fa";
 
@@ -35,9 +36,11 @@ async function App() {
                     <div className={styles.motto}>
                         <p>&quot;Learn to code, unlock your future&quot;</p>
                         <div className={styles.startButtonContainer}>
+                            <Link href={'/contests'}>
                             <button className={styles.startButton}>
                                 Start today
                             </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
