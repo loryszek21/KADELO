@@ -48,7 +48,6 @@ const insertUser = (req, res) => {
                     return res.status(500).json({ message: "Internal error" });
                 }
                 if (results.rows.length !== 0) {
-                    //   return res.status(409).json({ message: "User with this email already exists" });
                     const existingUser = results.rows.find(
                         (user) =>
                             user.users_email === email ||

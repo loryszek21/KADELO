@@ -1,10 +1,10 @@
-function start(a,b){
-    return a+b
+function start(number){
+    return number*number
 }
 try {
 
-    const test_input = [["3","4"],["1","5"],["-2","5"],["5","7"],["200","100"],["-89","55"]]
-    const test_output = [["7"],["6"],["3"],["12"],["300"],["-34"]];
+    const test_input = [["0"],["1"],["2"],["3"],["4"],["5"],["10"]]
+    const test_output = [["1"],["1"],["2"],["6"],["24"],["120"],["3628800"]];
     const testSolved = [];
 
     const isNumber = (value) => {

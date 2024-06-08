@@ -2,7 +2,8 @@ const pool = require("../../db");
 const { getUserId } = require("../users/controller");
 
 const getCourses = (req, res) => {
-    pool.query(`SELECT * FROM course`, (error, results) => {
+    const limit = req.query.limit || 10;
+    pool.query(`SELECT * FROM course LIMIT $1`, [limit], (error, results) => {
         if (results.rows.length == 0) {
             return res.status(404).json({ message: "Course not found" });
         }
@@ -45,7 +46,6 @@ const getTasksByCourseId = (req, res) => {
 
 const getUserSolution = async (req, res) => {
     const userid = await getUserId(req.params.email);
-    // console.log(req.params);
     return new Promise((resolve, reject) => {
         pool.query(
             `SELECT * FROM "user_tasks" WHERE "users_id" = ${userid} AND "tasks_id" = ${req.params.id} ORDER BY "completion_date" DESC, "complited" LIMIT 1;`,
