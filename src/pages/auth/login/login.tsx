@@ -33,7 +33,7 @@ export default function Login({
                 toast(res?.error, { type: "error" });
             }
         } catch (e) {
-            console.log("ERROR: " + e);
+            console.error("ERROR: " + e);
         }
     };
 

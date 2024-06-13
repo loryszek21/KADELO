@@ -6,13 +6,10 @@ import styles from "./codeArea.module.scss";
 import P from "@/app/(site)/components/Ptag/Ptag";
 import cn from "classnames";
 
-export default function CodeArea({ id }: any): JSX.Element {
+export default function CodeArea({ id, codeFromDB }: any): JSX.Element {
     const [output, setOutput] = useState<any>();
     const [error, setError] = useState<string>();
-    const [code, setCode] = useState(() => {
-        const savedCode = localStorage.getItem(`code${id}`);
-        return savedCode ? savedCode : "";
-    });
+    const [code, setCode] = useState(codeFromDB);
 
     const outputModifier = (output: any) => {
         let changed;

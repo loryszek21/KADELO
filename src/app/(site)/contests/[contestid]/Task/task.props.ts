@@ -8,10 +8,11 @@ export interface TaskProps
 
 export type taskType = {
     tasks_id: number;
-    lesson_id: number;
+    course_id: number;
     tasks_title: string;
-    tasks_example_input: string;
-    tasks_example_output: string;
-    tasks_content: number;
-    tasks_complete: string;
+    tasks_description: string;
+    tasks_example_input: string[];
+    tasks_example_output: string[];
+    output_explanation: string;
+    function_code: string;
 };

@@ -2,16 +2,12 @@ import Htag from "@/app/(site)/components/Htag/Htag";
 import P from "@/app/(site)/components/Ptag/Ptag";
 import Link from "next/link";
 import { RiArrowRightSLine } from "react-icons/ri";
-import { taskProps, taskType } from "./contestInfo.props";
+import { taskProps } from "./contestInfo.props";
 import styles from "./contestInfo.module.scss";
 import Crumbs from "@/app/(site)/components/Crumbs/crumbs";
+import { taskType } from "../../Task/task.props";
 
-export default async function ContestInfo({ id }: taskProps) {
-    const info: taskType = await fetch(`http://localhost:5000/task/${id}`, {
-        cache: "no-cache",
-    })
-        .then((res) => res.json())
-        .catch((e) => console.log(e));
+export default async function ContestInfo({ info }: taskProps) {
     const course = await fetch(
         `http://localhost:5000/courses/${info.course_id}`,
         {
@@ -19,7 +15,7 @@ export default async function ContestInfo({ id }: taskProps) {
         }
     )
         .then((res) => res.json())
-        .catch((e) => console.log(e));
+        .catch((e) => console.error(e));
 
     return (
         <div className={styles.main}>
@@ -38,7 +34,7 @@ export default async function ContestInfo({ id }: taskProps) {
             <span>
                 <P size="l">Description: </P>
                 <P className={styles.darker} size="m">
-                    {info?.tasks_content}
+                    {info?.tasks_description}
                 </P>
             </span>
 

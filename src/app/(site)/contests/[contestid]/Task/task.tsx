@@ -15,15 +15,14 @@ export default async function Task({ item, index }: TaskProps) {
         {
             cache: "no-cache",
         }
-    ).then((res) => res.json());
+    )
+        .then((res) => res.json())
+        .catch((e) => console.error(e));
 
     const options: any = {
         year: "numeric",
         month: "long",
         day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
     };
 
     return (
