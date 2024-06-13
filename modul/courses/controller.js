@@ -33,11 +33,11 @@ const getTasksByCourseId = (req, res) => {
     pool.query(
         `SELECT * FROM tasks WHERE course_id = ${req.params.id}`,
         (error, results) => {
-            if (results.rows.length == 0) {
-                return res.status(404).json({ message: "Lesson not found" });
-            }
             if (error) {
                 throw error;
+            }
+            if (results.rows.length == 0) {
+                return res.status(404).json({ message: "Lesson not found" });
             }
             res.status(200).json(results.rows);
         }
@@ -48,7 +48,7 @@ const getUserSolution = async (req, res) => {
     const userid = await getUserId(req.params.email);
     return new Promise((resolve, reject) => {
         pool.query(
-            `SELECT * FROM "user_tasks" WHERE "users_id" = ${userid} AND "tasks_id" = ${req.params.id} ORDER BY "completion_date" DESC, "complited" LIMIT 1;`,
+            `SELECT * FROM user_tasks WHERE tasks_id = ${req.params.id} AND "users_id" = ${userid} ORDER BY complited DESC, user_tasks_id DESC LIMIT 1`,
             (error, results) => {
                 if (results.rows.length == 0) {
                     return res

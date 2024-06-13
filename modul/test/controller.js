@@ -6,56 +6,54 @@ const exec = require("child_process").exec;
 
 const getTest = async (req, res) => {
     const userId = await getUserId(req.body.email);
-    await getTests(req.body.code, req.params.id);
+    await getTests(req.body.code, req.params.id, res);
     const stdout = await DockerRun(res);
     await insertTest(userId, req.params.id, stdout, res);
 };
 
-const testsController = (tests_input, tests_output) => `
-try {
+const testsController = (code, tests_input, tests_output) => `
+function start(){
+    return ${code}
+}
+const test_input = ${tests_input}
+const test_output = ${tests_output};
+const testSolved = [];
 
-    const test_input = ${tests_input}
-    const test_output = ${tests_output};
-    const testSolved = [];
+const isNumber = (value) => {
+    return !isNaN(parseFloat(value)) && isFinite(value);
+};
 
-    const isNumber = (value) => {
-        return !isNaN(parseFloat(value)) && isFinite(value);
-    };
-    
-    test_input.forEach((input) => {
-        input.forEach((element, index) => {
-            if (isNumber(element)) {
-                input[index] = parseInt(element);
-            }
-        });
-    });
-
-    test_output.forEach((output) => {
-        output.forEach((element, index) => {
-            if (isNumber(element)) {
-                output[index] = parseInt(element);
-            }
-        });
-    });
-
-    if (start) {
-        for (let i = 0; i < test_input.length; i++) {
-            const output = start(...test_input[i]);
-            const isSolved = output === test_output[i][0];
-            testSolved.push({ input: [...test_input[i]], output, correctOutput: [...test_output[i]], isSolved });
+test_input.forEach((input) => {
+    input.forEach((element, index) => {
+        if (isNumber(element)) {
+            input[index] = parseInt(element);
         }
-    }
-    else{
-        throw new Error('Function start not found');
-    }
+    });
+});
 
-    console.log(JSON.stringify(testSolved));
-} catch(e) {
+test_output.forEach((output) => {
+    output.forEach((element, index) => {
+        if (isNumber(element)) {
+            output[index] = parseInt(element);
+        }
+    });
+});
+try{
+    for (let i = 0; i < test_input.length; i++) {
+        const output = start()(...test_input[i]);
+        const isSolved = output === test_output[i][0];
+        testSolved.push({ input: [...test_input[i]], output, correctOutput: [...test_output[i]], isSolved });
+    }
+}
+catch(e){
     console.error(e);
 }
+
+console.log(JSON.stringify(testSolved));
+
 `;
 
-function getTests(code, id) {
+function getTests(code, id, res) {
     return new Promise((resolve, reject) => {
         pool.query(
             `SELECT * FROM "tests" WHERE tasks_id = ${id};`,
@@ -69,11 +67,10 @@ function getTests(code, id) {
                 }
                 fs.writeFile(
                     "modul/test/dockerContainer/test.js",
-                    JSON.parse(code).concat(
-                        testsController(
-                            JSON.stringify(results.rows[0].tests_input),
-                            JSON.stringify(results.rows[0].tests_output)
-                        )
+                    testsController(
+                        JSON.parse(code),
+                        JSON.stringify(results.rows[0].tests_input),
+                        JSON.stringify(results.rows[0].tests_output)
                     ),
                     (err) => {
                         if (err) {
