@@ -7,7 +7,9 @@ async function App() {
         <div className={styles.container}>
             <div className={styles.content}>
                 <div className={styles.logo}>
+                <Link href={"/about"}>
                     <FaCode size={300} />
+                </Link>
                 </div>
                 <div className={styles.inspiration}>
                     <p>

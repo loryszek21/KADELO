@@ -42,10 +42,6 @@
     text-align: right;
     transition: color 0.3s ease-in-out;
   }
-  
-  .motto p:hover {
-    color: #8a2be2;
-  }
 
   .motto {
     display: flex;
@@ -86,17 +82,3 @@
     margin-top: 50px;
     text-align: center;
   }  
-
-  .inspiration:hover {
-    color: #8a2be2;
-  }
-
-  .image {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-  .image img {
-    max-width: 100%;
-    height: auto;
-}

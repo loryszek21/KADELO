@@ -1,0 +1,50 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    color: white;
+    animation: fadeIn 2s ease-in-out;
+  }
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .logo {
+    margin-top: 20px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .section {
+    margin-bottom: 40px;
+    max-width: 800px;
+  }
+  
+  .section h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #8a2be2;
+  }
+  
+  .section p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .hr {
+    width: 800px;
+    border: 1px solid #fff;
+    margin: 40px 0;
+  }
