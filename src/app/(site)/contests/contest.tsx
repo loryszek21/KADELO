@@ -7,7 +7,11 @@ import Link from "next/link";
 
 export default function Contest(course: CoursePageProps): JSX.Element {
     return (
-        <Link href={`/contests/${course.course_id}`}>
+        <Link
+            href={
+                course.course_price == 0 ? `/contests/${course.course_id}` : ""
+            }
+        >
             <div className={styles.contest}>
                 <div className={styles.top_part}>
                     <section className={styles.info}>
@@ -25,7 +29,16 @@ export default function Contest(course: CoursePageProps): JSX.Element {
                 </div>
                 <div className={styles.bottom_part}>
                     {/* <Timestamp date={course.course_time_end} /> */}
-                    <Button appearance="ghost">Solve</Button>
+                    {course.course_price == 0 ? (
+                        <Button appearance="primary">Start</Button>
+                    ) : (
+                        <Button appearance="primary">Buy</Button>
+                    )}
+                    {course.course_price == 0 ? (
+                        <P size="m">Free</P>
+                    ) : (
+                        <P size="m">{course.course_price} $</P>
+                    )}
                 </div>
             </div>
         </Link>
