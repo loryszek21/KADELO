@@ -7,8 +7,6 @@ import Button from "@/app/(site)/components/Form/Button/Button";
 import { getServerSession } from "next-auth";
 
 export default async function Task({ item, index }: TaskProps) {
-    // const { data: session, status } = useSession();
-
     const session = await getServerSession();
     const data = await fetch(
         `http://localhost:5000/courses/tasks/userSolution/${item.tasks_id}/kamil@example.com`,
@@ -66,7 +64,7 @@ export default async function Task({ item, index }: TaskProps) {
                         )}
                     </div>
                 </div>
-                {data?.complited ? (
+                {session && data?.complited ? (
                     <Button appearance={"ghost"}>Solved</Button>
                 ) : (
                     <Button appearance={"primary"}>Solve</Button>

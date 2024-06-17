@@ -55,27 +55,28 @@ export default function SubmitButton({
         setOutput(null);
         setError("");
         setSubmitting(true);
-        try {
-            const response = await fetch(`http://localhost:5000/test/${id}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    code: JSON.stringify(code),
-                    email: session?.user?.email,
-                }),
+        await fetch(`http://localhost:5000/test/${id}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                code: JSON.stringify(code),
+                email: session?.user?.email,
+            }),
+        })
+            .then((res) => res.json())
+            .then(async (data) => await JSON.parse(data))
+            .then((data) => outputModifier(data))
+            .catch((error) => {
+                console.error("Error:", error);
+                setError(
+                    <P size="m">
+                        Something went wrong, your code is not working
+                    </P>
+                );
             })
-                .then((res) => res.json())
-                .then(async (data) => await JSON.parse(data))
-                .then((data) => outputModifier(data))
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        } catch (e: any) {
-            console.log(e);
-            setError(e.SyntaxError);
-        } finally {
-            setSubmitting(false);
-        }
+            .finally(() => {
+                setSubmitting(false);
+            });
     };
 
     return (

@@ -13,6 +13,6 @@ export type taskType = {
     tasks_description: string;
     tasks_example_input: string[];
     tasks_example_output: string[];
-    output_explanation: string;
+    output_explanation: string[];
     function_code: string;
 };

@@ -40,16 +40,28 @@ export default async function ContestInfo({ info }: taskProps) {
 
             <span>
                 <P size="l">Example input: </P>
-                <P className={styles.darker} size="m">
-                    {info?.tasks_example_input.map((el: string) => el + " ")}
-                </P>
+
+                {info?.tasks_example_input.map((el: string) => (
+                    <P className={styles.darker} size="m" key={el}>
+                        {el + " "}
+                    </P>
+                ))}
             </span>
             <span>
                 <P size="l">Example output:</P>
-                <P className={styles.darker} size="m">
-                    {" "}
-                    {info?.tasks_example_output}
-                </P>
+                {info?.tasks_example_output.map((el: string) => (
+                    <P className={styles.darker} size="m" key={el}>
+                        {el + " "}
+                    </P>
+                ))}
+            </span>
+            <span>
+                <P size="l">Explanation: </P>
+                {info?.output_explanation.map((el: string) => (
+                    <P className={styles.darker} size="m" key={el}>
+                        {el + " "}
+                    </P>
+                ))}
             </span>
         </div>
     );
