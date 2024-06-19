@@ -1,9 +1,12 @@
 const pool = require("../../db");
 const { getUserId } = require("../users/controller");
 
-const getCourses = (req, res) => {
+const getCourses = async  (req, res) => {
     const limit = req.query.limit || 10;
-    pool.query(`SELECT * FROM course LIMIT $1`, [limit], (error, results) => {
+    const email = req.query.email ;
+const user_id = await getUserId(email)
+console.log(user_id)
+    pool.query(`SELECT * FROM user_purchased_course WHERE  user_id = ${user_id} LIMIT $1`, [limit], (error, results) => {
         if (results.rows.length == 0) {
             return res.status(404).json({ message: "Course not found" });
         }

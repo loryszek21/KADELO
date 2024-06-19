@@ -17,15 +17,17 @@ const getShop = (req, res) => {
 
 
 const postitemShopById = async(req, res) => {
-   
+    const email = req.query.email ;
+    const { id } = req.params;
+    const orderId = `order_${id}_${Date.now()}`
     try {
-        const { id } = req.params;
 
         // Pobieranie danych kursu z bazy danych
         const courseQuery = await pool.query(`SELECT * FROM course WHERE course_id = $1`, [id]);
         if (courseQuery.rows.length == 0) {
             return res.status(404).json({ message: "Course not found" });
         }
+        
         const course = courseQuery.rows[0];
         const requestBody = {
             notifyUrl: "https://your.eshop.com/notify",
@@ -35,7 +37,7 @@ const postitemShopById = async(req, res) => {
             currencyCode: "PLN",
             redirectUri: "localhost:3000/contest",
             totalAmount: (course.course_price * 100).toString(), // Assuming course_price is in PLN and needs to be in grosz
-            extOrderId: `order_${id}_${Date.now()}`,
+            extOrderId: orderId,
             buyer: {
                 email: "john.doe@example.com",
                 phone: "654111654",
@@ -60,14 +62,44 @@ const postitemShopById = async(req, res) => {
             },
             body: JSON.stringify(requestBody)
             
+            
+
+
+
         });
-        console.log(requestBody)
+    //     const getStatus = await fetch(`https://secure.snd.payu.com/api/v2_1/orders/${orderId}`)
+    // console.log(getStatus)
+    
+    
+    
+    
+        
+        // console.log("test1")
+        
+        
+        // console.log(requestBody)
         // console.log(body)
 
         if (!externalApiResponse.ok) {
             throw new Error(`External API error: ${externalApiResponse.statusText}`);
-        }
+        }else{
+          
+            try{
+                const userID = await getUserId(email)
+                console.log(userID, id)
+                pool.query(
+                    `INSERT INTO user_purchased_course (user_id, course_id)VALUES(
+                        ${userID}, ${id})`
+                        
+                    );
+                }catch(error){
+                    console.error("Error:", error)
+                    res.status(500).json({ message: "Internal server error moj " });
 
+                }
+                
+            }
+        
     
         console.log(externalApiResponse) 
 
