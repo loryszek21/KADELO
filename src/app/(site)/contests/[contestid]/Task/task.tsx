@@ -9,13 +9,15 @@ import { getServerSession } from "next-auth";
 export default async function Task({ item, index }: TaskProps) {
     const session = await getServerSession();
     const data = await fetch(
-        `http://localhost:5000/courses/tasks/userSolution/${item.tasks_id}/kamil@example.com`,
+        `http://localhost:5000/courses/tasks/userSolution/${item.tasks_id}/${session?.user?.email}`,
         {
             cache: "no-cache",
         }
     )
         .then((res) => res.json())
         .catch((e) => console.error(e));
+
+    console.log(data);
 
     const options: any = {
         year: "numeric",

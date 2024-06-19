@@ -34,7 +34,6 @@ async function App() {
                     </div>
                 </div>
             </div>
-            <div className={styles.test}>TEST</div>
         </>
     );
 }
