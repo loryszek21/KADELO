@@ -4,6 +4,8 @@ const coursesRoutes = require("./modul/courses/routes");
 const usersRoutes = require("./modul/users/routes");
 const testRoutes = require("./modul/test/routes");
 const taskRoutes = require("./modul/task/routes");
+const shopRoutes = require("./modul/shop/routes");
+
 
 const corsOptions = {
     origin: "http://localhost:3000",
@@ -22,6 +24,7 @@ app.use("/courses", coursesRoutes);
 app.use("/user", usersRoutes);
 app.use("/test", testRoutes);
 app.use("/task", taskRoutes);
+app.use("/shop", shopRoutes);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
