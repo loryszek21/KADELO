@@ -1,11 +1,11 @@
 
 function start(){
-    return function replaceSubstring(str, oldSubstr, newSubstr) {
-	 return str.replace(oldSubstr, newSubstr);
+    return function stringLength(str) { 
+	return str.length
 }
 }
-const test_input = [["Hello, world!","world","everyone"],["OpenAI","AI","GPT"],["JavaScript","Script","Language"]]
-const test_output = [["Hello, everyone!"],["OpenGPT"],["JavaLanguage"]];
+const test_input = [["hello"],["OpenAI"],["JavaScript"]]
+const test_output = [["5"],["6"],["10"]];
 const testSolved = [];
 
 const isNumber = (value) => {

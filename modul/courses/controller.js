@@ -1,20 +1,23 @@
 const pool = require("../../db");
 const { getUserId } = require("../users/controller");
 
-const getCourses = async  (req, res) => {
+const getCourses = async (req, res) => {
     const limit = req.query.limit || 10;
-    const email = req.query.email ;
-const user_id = await getUserId(email)
-console.log(user_id)
-    pool.query(`SELECT * FROM user_purchased_course WHERE  user_id = ${user_id} LIMIT $1`, [limit], (error, results) => {
-        if (results.rows.length == 0) {
-            return res.status(404).json({ message: "Course not found" });
+    const email = req.query.email;
+    const user_id = await getUserId(email);
+    console.log(user_id);
+    pool.query(
+        `SELECT c.* FROM course as c RIGHT JOIN user_purchased_course as pc ON c.course_id = pc.course_id WHERE pc.user_id = ${user_id} UNION ALL SELECT * FROM course WHERE course_price = 0 LIMIT ${limit}`,
+        (error, results) => {
+            if (results.rows.length == 0) {
+                return res.status(404).json({ message: "Course not found" });
+            }
+            if (error) {
+                throw error;
+            }
+            res.status(200).json(results.rows);
         }
-        if (error) {
-            throw error;
-        }
-        res.status(200).json(results.rows);
-    });
+    );
 };
 
 const getCoursesById = (req, res) => {
