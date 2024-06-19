@@ -28,26 +28,33 @@ test_input.forEach((input) => {
         if (isNumber(element)) {
             input[index] = parseInt(element);
         }
-    });
-});
-
-test_output.forEach((output) => {
-    output.forEach((element, index) => {
-        if (isNumber(element)) {
-            output[index] = parseInt(element);
+        else{
+            input[index] = String(element);
         }
     });
 });
+
+// test_output.forEach((output) => {
+//     output.forEach((element, index) => {
+//         if (isNumber(element)) {
+//             output[index] = parseInt(element);
+//         }
+//         else{
+//             output[index] = String(element);
+//         }
+//     });
+// });
+
 try{
     for (let i = 0; i < test_input.length; i++) {
-        const output = start()(...test_input[i]);
+        const output = start()(...test_input[i]).toString();
         const isSolved = output === test_output[i][0];
         testSolved.push({ input: [...test_input[i]], output, correctOutput: [...test_output[i]], isSolved });
     }
 }
 catch(e){
-    console.error(e);
-}
+    throw (e);
+    }
 
 console.log(JSON.stringify(testSolved));
 
@@ -97,8 +104,9 @@ function DockerRun(res) {
                     "docker exec runCode node /usr/src/test",
                     (error, stdout, stderr) => {
                         if (error) {
-                            console.error(`Error: ${stderr}`);
-                            res.status(500).send(`Error: ${stderr}`);
+                            // console.error(`stderr: ${stderr}`);
+                            console.error(error);
+                            res.status(500).send(error);
                         } else {
                             resolve(stdout);
                         }
@@ -111,7 +119,6 @@ function DockerRun(res) {
 
 function insertTest(userId, tasks_id, stdout, res) {
     let completed = true;
-    console.log(stdout);
     JSON.parse(stdout).map((el) => {
         if (el.isSolved === false) {
             completed = false;
