@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function Contest(course: CoursePageProps): JSX.Element {
     return (
+        
         <Link
             href={
                 course.course_price == 0 ? `/contests/${course.course_id}` : ""
@@ -32,7 +33,7 @@ export default function Contest(course: CoursePageProps): JSX.Element {
                     {course.course_price == 0 ? (
                         <Button appearance="primary">Start</Button>
                     ) : (
-                        <Button appearance="primary">Buy</Button>
+                        <Button appearance="primary" >Buy</Button>
                     )}
                     {course.course_price == 0 ? (
                         <P size="m">Free</P>

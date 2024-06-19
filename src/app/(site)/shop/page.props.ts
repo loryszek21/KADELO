@@ -1,4 +1,4 @@
-type CoursePageProps = {
+type ShopPageProps = {
     course_id: number;
     course_name: string;
     course_description: string;
@@ -9,5 +9,4 @@ type CoursePageProps = {
     course_time_start: Date;
     authors_id: number;
     users_id: number;
-    email: string
 };
